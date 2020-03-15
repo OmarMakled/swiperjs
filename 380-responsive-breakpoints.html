@@ -39,50 +39,123 @@
         #swiper-wrapper {
             height: 300px;
         }
+
+        #fullslider {
+            position: fixed;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background: #000000d1;
+            z-index: 1000;
+        }
+
+        .fullslider__content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .fullslider__nav {
+            height: 50px;
+            line-height: 50px;
+            text-align: right;
+            padding: 10px;
+            border-bottom: 1px solid #4a4a4a;
+        }
     </style>
 </head>
 
 <body>
     <div id="swiper-wrapper">
-        <div class="swiper-container">
+        <div class="swiper-container swiper1">
             <div class="swiper-wrapper">
-                <div class="swiper-slide" style="background-image:url(./1.jpg)"></div>
-                <div class="swiper-slide" style="background-image:url(./2.jpg)"></div>
-                <div class="swiper-slide" style="background-image:url(./3.jpg)"></div>
+                <div class="swiper-slide toggle-fullslider" style="background-image:url(./1.jpg)"></div>
+                <div class="swiper-slide toggle-fullslider" style="background-image:url(./2.jpg)"></div>
+                <div class="swiper-slide toggle-fullslider" style="background-image:url(./3.jpg)"></div>
             </div>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </div>
     </div>
 
-    <!-- Swiper JS -->
-    <script src="./swiper.js"></script>
+    <div id="fullslider">
+        <div class="fullslider__nav">
+            <a href="" class="toggle-fullslider"><svg data-v-50b40e0f="" viewBox="0 0 24 24" role="img"
+                    aria-label="Close" focusable="false" style="height: 16px; width: 16px; fill: #fff">
+                    <path data-v-50b40e0f=""
+                        d="m23.25 24c-.19 0-.38-.07-.53-.22l-10.72-10.72-10.72 10.72c-.29.29-.77.29-1.06 0s-.29-.77 0-1.06l10.72-10.72-10.72-10.72c-.29-.29-.29-.77 0-1.06s.77-.29 1.06 0l10.72 10.72 10.72-10.72c.29-.29.77-.29 1.06 0s .29.77 0 1.06l-10.72 10.72 10.72 10.72c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22"
+                        fill-rule="evenodd"></path>
+                </svg></a>
+        </div>
+        <div class="fullslider__content">
+            <div class="swiper-container swiper2">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="swiper-zoom-container">
+                            <img src="./1.jpg">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="swiper-zoom-container">
+                            <img src="./2.jpg">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="swiper-zoom-container">
+                            <img src="./3.jpg">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="swiper-zoom-container">
+                            <img src="./4.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination swiper-pagination-white"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Initialize Swiper -->
+    <script src="./jquery.js"></script>
+    <script src="./swiper.js"></script>
     <script>
-        var swiper = new Swiper(".swiper-container", {
+        $(function () {
+            $('#fullslider').hide();
+
+            $('.toggle-fullslider').on('click', function (e) {
+                e.preventDefault();
+                $('#fullslider').toggle();
+            });
+        })
+        new Swiper(".swiper1", {
             slidesPerView: 1,
             spaceBetween: 3,
             loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                }
+            }
+        });
+        new Swiper(".swiper2", {
             pagination: {
-                el: ".swiper-pagination",
+                el: '.swiper-pagination',
+                type: 'progressbar',
                 clickable: true
             },
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
-            breakpoints: {
-                640: {
-                    slidesPerView: 3,
-                },
-                768: {
-                    slidesPerView: 3,
-                },
-                1024: {
-                    slidesPerView: 3,
-                }
-            }
         });
     </script>
 </body>
